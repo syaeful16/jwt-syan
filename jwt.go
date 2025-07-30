@@ -12,8 +12,10 @@ func GenerateToken(secretKey string, duration time.Duration, customClaims map[st
 		claims[k] = v
 	}
 
-	claims["exp"] = time.Now().Add(duration).Unix()
-	claims["iat"] = time.Now().Unix()
+	timeNow := time.Now()
+
+	claims["exp"] = timeNow.Add(duration).Unix()
+	claims["iat"] = timeNow.Unix()
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
